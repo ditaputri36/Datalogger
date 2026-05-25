@@ -8,6 +8,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
 }
@@ -30,17 +36,22 @@ body {
   overflow: hidden;
 }
 
-/* Sidebar */
+/* =========================
+   SIDEBAR
+========================= */
 .sidebar {
   width: 270px;
+  min-width: 270px;
   background: linear-gradient(to bottom, #9fd3c7, #1b6ca8);
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 2px 0 10px rgba(0,0,0,0.15);
   z-index: 10;
+  scrollbar-width: thin;
 }
 
 /* Logo */
@@ -52,6 +63,7 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .logo img {
   max-width: 100%;
   height: auto;
@@ -59,6 +71,7 @@ body {
 
 /* Menu */
 .menu-item {
+  min-height: 46px;
   padding: 12px;
   cursor: pointer;
   font-weight: 600;
@@ -71,20 +84,25 @@ body {
   color: #000;
   font-family: 'Poppins', sans-serif;
 }
+
 .menu-item:hover,
 .menu-item.active {
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* Filter */
+/* =========================
+   FILTER
+========================= */
 .filter-controls {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .filter-row {
   width: 100%;
 }
+
 .btn-filter {
   background-color: #d11a2a;
   color: white;
@@ -96,14 +114,47 @@ body {
   font-weight: 600;
   font-size: 12px;
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
+
 select[multiple] {
   height: 80px;
   border-radius: 10px;
   padding: 5px;
 }
 
-/* Calendar */
+/* Tombol pilih semua jam dan hapus jam */
+.time-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.mini-filter-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 8px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #d11a2a;
+  color: white;
+  transition: 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.mini-filter-btn.light {
+  background: rgba(255,255,255,0.85);
+  color: #1f2d3d;
+}
+
+.mini-filter-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   CALENDAR
+========================= */
 .calendar-widget {
   background: white;
   border-radius: 15px;
@@ -111,28 +162,63 @@ select[multiple] {
   text-align: center;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
+
 .calendar-header {
   background: linear-gradient(to right, #ff9a9e, #fecfef);
   padding: 8px;
   border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-items: center;
   margin-bottom: 10px;
 }
+
 .calendar-header select {
+  width: 100%;
+  min-width: 0;
+  height: 42px;
+  padding: 0 32px 0 12px;
   border: none;
-  font-weight: 600;
-  background: transparent;
-  font-size: 12px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #111;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
   outline: none;
   cursor: pointer;
+  text-align: left;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #111 50%),
+    linear-gradient(135deg, #111 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 18px,
+    calc(100% - 11px) 18px;
+  background-size:
+    6px 6px,
+    6px 6px;
+  background-repeat: no-repeat;
 }
+
+#monthSelect,
+#yearSelect {
+  font-size: 13px;
+  text-align: left;
+}
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 5px;
   font-size: 12px;
 }
+
 .calendar-day {
   cursor: pointer;
   padding: 6px 0;
@@ -140,15 +226,19 @@ select[multiple] {
   font-weight: 500;
   transition: 0.2s;
 }
+
 .calendar-day:hover {
   background-color: #f1f2f6;
 }
+
 .calendar-day.selected {
   background-color: #d11a2a;
   color: white;
 }
 
-/* Export */
+/* =========================
+   EXPORT BUTTON
+========================= */
 .export-btn {
   background: linear-gradient(to bottom, #dcdde1, #7f8fa6);
   color: black;
@@ -161,17 +251,30 @@ select[multiple] {
   box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
   transition: 0.2s;
   margin-top: 10px;
+  font-family: 'Poppins', sans-serif;
 }
+
 .export-btn:hover {
   transform: translateY(-2px);
 }
 
-/* Main */
+#btnExport:disabled,
+#categoryFilter:disabled,
+#timeFilter:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+/* =========================
+   MAIN CONTENT
+========================= */
 .main-content {
   flex: 1;
-  padding: 30px;
+  padding: 30px 42px 30px 30px;
   overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
+  scrollbar-gutter: stable;
 }
 
 /* Judul utama dashboard */
@@ -188,7 +291,7 @@ select[multiple] {
   z-index: 5;
 }
 
-/* Semua halaman: Home, Elitech, E+Elektronik, Benetech */
+/* Semua halaman */
 .view-section {
   display: none;
   margin-top: 60px;
@@ -196,17 +299,14 @@ select[multiple] {
   transform: translateY(20px) scale(0.98);
 }
 
-/* Halaman yang sedang aktif */
 .view-section.active {
   display: block;
 }
 
-/* Class khusus untuk menjalankan animasi */
 .view-section.page-transition {
   animation: viewEnter 0.45s ease forwards;
 }
 
-/* Animasi masuk halaman */
 @keyframes viewEnter {
   from {
     opacity: 0;
@@ -219,7 +319,9 @@ select[multiple] {
   }
 }
 
-/* Home */
+/* =========================
+   HOME
+========================= */
 .home-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -235,6 +337,7 @@ select[multiple] {
   gap: 24px;
   align-self: start;
 }
+
 .card {
   background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
@@ -243,16 +346,19 @@ select[multiple] {
   border: 1px solid rgba(255,255,255,0.6);
   box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
+
 .card h2 {
   margin-bottom: 15px;
   font-size: 20px;
 }
+
 .card p,
 .card li {
   font-size: 14px;
   color: #333;
   line-height: 1.6;
 }
+
 .card-guide {
   flex: 0 0 auto;
   height: fit-content;
@@ -314,9 +420,19 @@ select[multiple] {
   margin: 0;
 }
 
-/* Location */
+/* =========================
+   LOCATION CARD
+========================= */
 .location-section {
   width: 80%;
+}
+
+.multi-location-section {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-content: start;
 }
 
 .location-card {
@@ -326,6 +442,7 @@ select[multiple] {
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  height: auto;
 }
 
 .location-card-header {
@@ -350,6 +467,8 @@ select[multiple] {
   flex-direction: column;
   gap: 10px;
   padding: 14px;
+  max-height: none;
+  overflow-y: visible;
 }
 
 .location-item-modern {
@@ -385,189 +504,9 @@ select[multiple] {
   font-size: 20px;
 }
 
-/* Analytics */
-.scorecards {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
-  margin-bottom: 20px;
-}
-.scorecard {
-  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
-  padding: 15px 10px;
-  text-align: center;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-}
-.scorecard span {
-  font-weight: 400;
-  font-size: 16px;
-  display: block;
-  margin-top: 5px;
-}
-
-/* Charts */
-.chart-container {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-.chart-column {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.chart-header-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 10px;
-}
-.chart-title-box {
-  background: linear-gradient(to bottom, #dcdde1, #718093);
-  padding: 8px 30px;
-  border-radius: 8px;
-  font-weight: 700;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
-.sheet-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  transition: 0.2s;
-}
-.sheet-btn:hover {
-  background: white;
-}
-.canvas-wrapper {
-  position: relative;
-  height: 250px;
-  width: 100%;
-}
-.chart-empty {
-  position: absolute;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 16px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.85);
-  color: #333;
-  font-weight: 600;
-  font-size: 13px;
-}
-
-/* Tables */
-.data-tables {
-  display: flex;
-  gap: 20px;
-}
-.data-table-wrapper {
-  flex: 1;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  height: 220px;
-  overflow-y: auto;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-table.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12px;
-}
-table.data-table th,
-table.data-table td {
-  border: 1px solid #eee;
-  padding: 8px;
-  text-align: center;
-}
-table.data-table th {
-  background: #f8f9fa;
-  font-weight: 600;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .scorecards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .chart-container,
-  .data-tables,
-  .home-layout {
-    flex-direction: column;
-    display: flex;
-  }
-
-  .location-section {
-    width: 100%;
-  }
-
-  .multi-location-section {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard-page {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .sidebar {
-    width: 100%;
-  }
-
-  .scorecards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.sidebar {
-  scrollbar-width: thin;
-}
-
-.menu-item {
-  min-height: 46px;
-}
-
-.data-table-wrapper h4 {
-  margin-bottom: 10px;
-}
-
-table.data-table th,
-table.data-table td {
-  white-space: nowrap;
-}
-
-.multi-location-section {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  align-content: start;
-}
-
-.multi-location-section .location-card {
-  height: auto;
-}
-
-.multi-location-section .location-list {
-  max-height: none;
-  overflow-y: visible;
-}
-
-/* Status dan ringkasan filter */
+/* =========================
+   STATUS DAN FILTER SUMMARY
+========================= */
 .data-status {
   margin: 0 0 10px 0;
   padding: 10px 14px;
@@ -577,6 +516,9 @@ table.data-table td {
   background: rgba(255, 255, 255, 0.75);
   color: #1f2d3d;
   border: 1px solid rgba(255,255,255,0.75);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .data-status.loading {
@@ -599,6 +541,28 @@ table.data-table td {
   color: #b71c1c;
 }
 
+.loading-dot {
+  width: 8px;
+  height: 8px;
+  min-width: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+  animation: loadingPulse 0.9s ease-in-out infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(0.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
 .filter-summary {
   margin: 0 0 18px 0;
   padding: 10px 14px;
@@ -610,51 +574,149 @@ table.data-table td {
   border: 1px solid rgba(255,255,255,0.65);
 }
 
-.time-action-row {
+/* =========================
+   SCORECARDS
+   Tetap 6 kotak sejajar
+========================= */
+.scorecards {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-right: 6px;
+  overflow: visible;
 }
 
-.mini-filter-btn {
-  border: none;
-  border-radius: 12px;
-  padding: 8px 6px;
-  font-size: 11px;
+.scorecard {
+  min-width: 0;
+  background: linear-gradient(to bottom, #e0e0e0, #9e9e9e);
+  padding: 15px 10px;
+  text-align: center;
+  border-radius: 10px;
   font-weight: 700;
-  cursor: pointer;
-  background: #d11a2a;
-  color: white;
-  transition: 0.2s;
+  font-size: 14px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
 }
 
-.mini-filter-btn.light {
-  background: rgba(255,255,255,0.85);
-  color: #1f2d3d;
+.scorecard span {
+  font-weight: 400;
+  font-size: 16px;
+  display: block;
+  margin-top: 5px;
 }
-
-.mini-filter-btn:hover {
-  transform: translateY(-1px);
-}
-
 
 /* =========================
-   PERFORMANCE OPTIMIZATION FOR VS CODE
+   CHARTS
 ========================= */
-
-#btnExport:disabled,
-#categoryFilter:disabled,
-#timeFilter:disabled {
-  opacity: 0.65;
-  cursor: wait;
+.chart-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
-.data-table-wrapper {
-  contain: content;
+.chart-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chart-header-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.chart-title-box {
+  background: linear-gradient(to bottom, #dcdde1, #718093);
+  padding: 8px 30px;
+  border-radius: 8px;
+  font-weight: 700;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.sheet-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sheet-btn:hover {
+  background: white;
 }
 
 .canvas-wrapper {
+  position: relative;
+  height: 250px;
+  width: 100%;
   contain: content;
+}
+
+.chart-empty {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.85);
+  color: #333;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* =========================
+   TABLES
+   Tidak sticky agar tampil seperti VS Code
+========================= */
+.data-tables {
+  display: flex;
+  gap: 20px;
+}
+
+.data-table-wrapper {
+  flex: 1;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  height: 220px;
+  overflow: auto;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  contain: content;
+}
+
+.data-table-wrapper h4 {
+  margin-bottom: 10px;
+}
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+table.data-table th,
+table.data-table td {
+  border: 1px solid #eee;
+  padding: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+table.data-table th {
+  background: #f8f9fa;
+  font-weight: 600;
 }
 
 .table-limit-note {
@@ -664,24 +726,105 @@ table.data-table td {
   text-align: center;
 }
 
-.data-status.loading::after {
-  content: '';
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-left: 8px;
-  border-radius: 50%;
-  background: currentColor;
-  animation: loadingPulse 0.9s ease-in-out infinite;
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 30px 36px 30px 24px;
+  }
+
+  .scorecards {
+    gap: 10px;
+  }
+
+  .scorecard {
+    padding: 13px 8px;
+    font-size: 12px;
+  }
+
+  .scorecard span {
+    font-size: 14px;
+  }
 }
 
-@keyframes loadingPulse {
-  0%, 100% {
-    opacity: 0.25;
-    transform: scale(0.85);
+@media (max-width: 1024px) {
+  .chart-container,
+  .data-tables,
+  .home-layout {
+    flex-direction: column;
+    display: flex;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
+
+  .location-section {
+    width: 100%;
+  }
+
+  .multi-location-section {
+    grid-template-columns: 1fr;
+  }
+
+  .scorecards {
+    grid-template-columns: repeat(6, minmax(90px, 1fr));
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+  }
+
+  .scorecard {
+    min-width: 90px;
+    font-size: 11px;
+    padding: 12px 6px;
+  }
+
+  .scorecard span {
+    font-size: 13px;
   }
 }
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .dashboard-body {
+    overflow: auto;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .main-content {
+    padding: 25px 20px;
+    overflow-x: hidden;
+  }
+
+  .header-title {
+    position: relative;
+    font-size: 20px;
+    margin: -25px -20px 20px -20px;
+    border-radius: 0 0 30px 0;
+  }
+
+  .view-section {
+    margin-top: 20px;
+  }
+
+  .scorecards {
+    grid-template-columns: repeat(6, 100px);
+    overflow-x: auto;
+  }
+
+  .scorecard {
+    min-width: 100px;
+  }
+}
+
+/* GitHub final:
+   - tabel tetap normal seperti tampilan VS Code
+   - scorecard tetap sejajar
+   - loading dot stabil
+*/
